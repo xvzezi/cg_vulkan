@@ -37,17 +37,34 @@ private:	// vulkan
 
 	void setupDebugMessenger();
 
+	void createSurface();
+
 	auto findQueueFamilies(VkPhysicalDevice device)->util_QueueFamilyIndices;
+	bool checkDeviceExtSup(VkPhysicalDevice device);
+	auto querySurfaceDetails(VkPhysicalDevice device)->util_SurfaceDetails;
 	bool isDeviceSuitable(VkPhysicalDevice device);
 	void pickPhysicalDevice();
 
 	void createLogicalDevice();
+
+	void createSwapChain();
 	
 private:
 	GLFWwindow* window;
 	VkInstance instance;
+
+	VkSurfaceKHR surface;
+
 	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+	
 	VkDevice device;
+	VkQueue graphicsQueue;
+	VkQueue presentQueue;
+
+	VkSwapchainKHR swapChain;
+	std::vector<VkImage> swapChainImages;
+	VkFormat swapChainImageFormat;
+	VkExtent2D swapChainExtent;
 
 private:	// debug
 #ifndef NDEBUG
