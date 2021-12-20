@@ -20,7 +20,7 @@ const float RENDER_QUEUE_PRIORITY_PRESENT = 1.0f;
 extern const std::vector<const char*> DEVICE_EXT_REQUIRED;
 
 
-
+const int MAX_FRAMES_IN_FLIGHT = 2;
 
 
 

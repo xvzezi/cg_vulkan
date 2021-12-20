@@ -4,6 +4,7 @@
 #define XZ_UTIL_H
 
 #include <optional>
+#include <string>
 #include <set>
 #include <vector>
 
@@ -37,4 +38,5 @@ struct util_SurfaceDetails
 	VkExtent2D chooseExtent(uint32_t pixel_width, uint32_t pixel_height);
 };
 
+std::vector<char> readFile(const std::string& filename);
 #endif // !XZ_UTIL_H

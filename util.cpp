@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 
 ///// util_QueueFamilyIndices
 bool util_QueueFamilyIndices::isComplete()
@@ -80,4 +81,24 @@ VkExtent2D util_SurfaceDetails::chooseExtent(uint32_t pixel_width, uint32_t pixe
 		extent.height = std::clamp(extent.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
 		return extent;
 	}
+}
+
+
+
+///// utilities function
+std::vector<char> readFile(const std::string& filename)
+{
+	std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+	if (!file.is_open())
+		throw std::runtime_error("failed to open file " + filename);
+
+	size_t filesize = (size_t)file.tellg();
+	std::vector<char> buffer(filesize);
+
+	file.seekg(0);
+	file.read(buffer.data(), filesize);
+
+	file.close();
+	return buffer;
 }

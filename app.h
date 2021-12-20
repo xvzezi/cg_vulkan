@@ -48,7 +48,31 @@ private:	// vulkan
 	void createLogicalDevice();
 
 	void createSwapChain();
+
+	void createImageViews();
+
+	VkShaderModule createShaderModule(const std::vector<char>& code);
+	void createRenderPass();
+	void createGraphicsPipeline();
+
+	void createFramebuffers();
+
+	void createCommandPool();
+
+	void createCommandBuffers();
+
+	void createSyncObjects();
+
+private:	// runtime
+
+	void drawFrame();
 	
+	void cleanupSwapChain();
+
+	void recreateSwapChain();
+
+	static void framebufferResizedCallback(GLFWwindow*, int w, int h);
+
 private:
 	GLFWwindow* window;
 	VkInstance instance;
@@ -66,6 +90,24 @@ private:
 	VkFormat swapChainImageFormat;
 	VkExtent2D swapChainExtent;
 
+	std::vector<VkImageView> swapChainImageViews;
+
+	VkRenderPass renderPass;
+	VkPipelineLayout pipelineLayout;
+	VkPipeline graphicsPipeline;
+
+	std::vector<VkFramebuffer> swapChainFramebuffers;
+
+	VkCommandPool commandPool;
+	std::vector<VkCommandBuffer> commandBuffers;
+
+	std::vector<VkSemaphore> imageAvailableSemaphores;
+	std::vector<VkSemaphore> renderFinishedSemaphores;
+	std::vector<VkFence> inFlightFences;
+	std::vector<VkFence> imagesInFlight;
+	size_t currentFrame = 0;
+
+	bool framebufferResized = false;
 private:	// debug
 #ifndef NDEBUG
 	static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
